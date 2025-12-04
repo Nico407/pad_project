@@ -1,6 +1,10 @@
 #loading the input file in p1
-def ParseSeqFile(data):
-    with open("data.txt", "rt") as f: # r = read, t = txt file
+filename = r"C:\Users\nicob\Desktop\MSc ACLS\2. Sem\PAD\project\data.txt"
+def ParseSeqFile(filename):
+    clean_list = [] #creating empty list to append in later stages
+    nucleotides = set("ACGT") #setting valid characters for sequence
+
+    with open(filename, "rt") as f: # r = read, t = txt file
         for line in f:
             line = line.strip() #removing empty lines
 
@@ -20,20 +24,14 @@ def ParseSeqFile(data):
                 sequence = sequence.upper().replace(" ","") #all letters are uppercase #removes the spaces " " from the sequence part
                 print(label, sequence, sep = "|")
 
-                nucleotides = set("ACGT")
-
                 if set(label).issubset(nucleotides):        #Checking whether there is a label/sequence part handled as label
                     raise Exception("malformed input, Label might be part of Sequence")#???????????????????
 
                 if not set(sequence).issubset(nucleotides):     #Checking whether the sequence contains only valid characters
                     raise Exception("malformed input, Sequence contains illegal Characters")#???????????????????
             
-                clean_list = [] 
                 clean_list.append((label, sequence))
                 print(clean_list)
     return clean_list
 
-ParseSeqFile("data.txt")
-
-
-
+ParseSeqFile(filename)
